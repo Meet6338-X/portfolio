@@ -18,7 +18,7 @@ using cutting-edge GenAI techniques.`,
 
   elevatorPitch: `I'm a 20-year-old AI & LLM developer from Pune, currently in my 2nd year of B.Tech IT at VIT Pune (9.05 CGPA). I specialise in GenAI, LLMs, prompt engineering, and Flutter mobile development. I've completed internships at Kodacy (AI/ML) and TechGigs (Flutter), hold 40+ global certifications including Harvard CS50x and Google Gemini, and I'm actively seeking a 6-month internship in AI/ML, GenAI, or full-stack development. I bring a 'grind by default' mentality and I'm available immediately — remote or on-site in Pune.`,
 
-  email: "meetshah.work@gmail.com",
+  email: "shahmeet644@gmail.com",
   phone: "",
   location: "Pune, Maharashtra, India",
   availability: "Seeking 6-month internship — Available now",
