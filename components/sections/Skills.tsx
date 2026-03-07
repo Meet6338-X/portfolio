@@ -2,155 +2,137 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import AnimatedSection, { StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
 import { portfolioConfig } from '@/config/portfolio.config';
 
 export default function Skills() {
   const { skills } = portfolioConfig;
-  const [activeCategory, setActiveCategory] = useState(skills[0].category);
-
-  const activeSkills = skills.find(s => s.category === activeCategory)?.items || [];
+  const [active, setActive] = useState(0);
 
   return (
-    <section id="skills" className="section">
-      {/* Subtle background accent */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--accent-blue)]/3 blur-[120px]" />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative">
-        <AnimatedSection className="text-center mb-14">
-          <p className="section-label">Technical Skills</p>
-          <h2 className="section-title">
-            Tools of the <span className="gradient-text italic">trade.</span>
-          </h2>
-          <p className="text-[var(--text-secondary)] max-w-2xl mx-auto">
-            A curated set of technologies I use to build fast, scalable, and beautiful products.
-          </p>
-        </AnimatedSection>
+    <section id="skills" style={{ background: '#0f0f0f' }} className="grid-lines">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+        {/* Header */}
+        <div className="flex flex-wrap items-center gap-4 mb-12">
+          <span className="section-tag-dark">03 // Skills</span>
+          <div style={{ flex: 1, height: '4px', background: '#CCFF00', minWidth: '40px' }} />
+          <span className="mono-label" style={{ color: '#CCFF00' }}>TECH ARSENAL</span>
+        </div>
 
         {/* Category tabs */}
-        <AnimatedSection delay={0.2} className="flex flex-wrap justify-center gap-2 mb-12">
-          {skills.map((cat) => (
+        <div className="flex flex-wrap gap-3 mb-10">
+          {skills.map((cat, i) => (
             <button
-              key={cat.category}
-              onClick={() => setActiveCategory(cat.category)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-mono text-sm transition-all duration-300 ${
-                activeCategory === cat.category
-                  ? 'bg-[var(--accent-blue)] text-white shadow-lg shadow-[var(--accent-blue)]/30'
-                  : 'glass text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-glow)]'
-              }`}
+              key={i}
+              onClick={() => setActive(i)}
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px', fontWeight: '700',
+                letterSpacing: '0.12em', textTransform: 'uppercase',
+                padding: '8px 18px', cursor: 'pointer',
+                background: active === i ? '#CCFF00' : 'transparent',
+                color: active === i ? '#000' : '#666',
+                border: active === i ? '3px solid #CCFF00' : '3px solid #333',
+                boxShadow: active === i ? '4px 4px 0px 0px #CCFF00' : 'none',
+                transition: 'all 0.15s',
+              }}
             >
-              <span>{cat.icon}</span>
-              {cat.category}
+              {cat.icon} {cat.category}
             </button>
           ))}
-        </AnimatedSection>
+        </div>
 
-        {/* Skill cards */}
+        {/* Skills grid */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, y: 20 }}
+            key={active}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
-            {activeSkills.map((skill, i) => (
+            {skills[active].items.map((skill, i) => (
               <SkillCard key={skill.name} skill={skill} index={i} />
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* All skills cloud (non-active) */}
-        <AnimatedSection delay={0.4} className="mt-16">
-          <p className="font-mono text-xs text-[var(--text-muted)] text-center tracking-widest uppercase mb-6">
-            Also familiar with
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {[
-              'Assembly (8086)', 'OpenCV', 'TensorFlow', 'Scikit-Learn',
-              'PostgreSQL', 'MongoDB', 'SQLite', 'Firebase Realtime DB',
-              'Google Cloud', 'Oracle Cloud', 'REST APIs',
-              'Agile / Scrum', 'Figma', 'VS Code', 'Android Studio',
-            ].map((tech, i) => (
+        {/* Also familiar with */}
+        <div style={{ marginTop: '48px', borderTop: '4px solid #222', paddingTop: '32px' }}>
+          <div className="mono-label" style={{ color: '#444', marginBottom: '16px' }}>
+            Also experienced with:
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {['Assembly (8086)', 'OpenCV', 'Scikit-Learn', 'PostgreSQL', 'MongoDB', 'SQLite',
+              'Google Cloud', 'Oracle Cloud', 'REST APIs', 'Agile/Scrum', 'Android Studio', 'VS Code'].map(tech => (
               <motion.span
                 key={tech}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: i * 0.04 }}
-                viewport={{ once: true }}
-                className="tag"
+                whileHover={{ scale: 1.05, borderColor: '#CCFF00', color: '#CCFF00' }}
+                className="tag-white"
+                style={{ cursor: 'default', transition: 'all 0.15s' }}
               >
                 {tech}
               </motion.span>
             ))}
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );
 }
 
-function SkillCard({
-  skill,
-  index,
-}: {
-  skill: { name: string; level: number; icon: string };
-  index: number;
-}) {
+function SkillCard({ skill, index }: { skill: { name: string; level: number; icon: string }; index: number }) {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true });
 
-  const levelLabel =
-    skill.level >= 90 ? 'Expert' :
-    skill.level >= 75 ? 'Advanced' :
-    skill.level >= 60 ? 'Proficient' : 'Learning';
-
-  const levelColor =
-    skill.level >= 90 ? 'var(--accent-green)' :
-    skill.level >= 75 ? 'var(--accent-blue)' :
-    skill.level >= 60 ? 'var(--accent-purple)' : 'var(--text-muted)';
+  const label = skill.level >= 88 ? 'EXPERT' : skill.level >= 75 ? 'ADVANCED' : skill.level >= 62 ? 'PROFICIENT' : 'LEARNING';
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="glass glass-hover p-5 rounded-2xl group"
+      transition={{ delay: index * 0.07, duration: 0.4 }}
+      style={{
+        background: '#111', border: '3px solid #222',
+        boxShadow: '6px 6px 0px 0px #CCFF00',
+        padding: '18px', position: 'relative',
+        transition: 'transform 0.15s, box-shadow 0.15s',
+      }}
+      whileHover={{ y: -3, boxShadow: '9px 9px 0px 0px #CCFF00' }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">{skill.icon}</span>
-          <span className="font-medium text-[var(--text-primary)] text-sm">{skill.name}</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span style={{ fontSize: '22px' }}>{skill.icon}</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontWeight: '600', color: '#fff', fontSize: '14px' }}>
+            {skill.name}
+          </span>
         </div>
         <span
-          className="font-mono text-xs px-2 py-1 rounded-lg"
+          className="mono-label"
           style={{
-            color: levelColor,
-            background: `${levelColor}15`,
+            background: skill.level >= 88 ? '#CCFF00' : '#222',
+            color: skill.level >= 88 ? '#000' : '#666',
+            border: '2px solid',
+            borderColor: skill.level >= 88 ? '#CCFF00' : '#333',
+            padding: '2px 7px', fontSize: '9px',
           }}
         >
-          {levelLabel}
+          {label}
         </span>
       </div>
 
-      {/* Progress bar */}
-      <div className="skill-bar">
+      <div className="skill-bar-track">
         <motion.div
           className="skill-bar-fill"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: inView ? skill.level / 100 : 0 }}
-          transition={{ duration: 1.2, delay: index * 0.08 + 0.2, ease: [0.4, 0, 0.2, 1] }}
+          transition={{ duration: 1.3, delay: index * 0.07 + 0.1, ease: [0.4, 0, 0.2, 1] }}
         />
       </div>
 
-      <div className="flex justify-between mt-2">
-        <span className="font-mono text-xs text-[var(--text-muted)]">proficiency</span>
-        <span className="font-mono text-xs" style={{ color: levelColor }}>
-          {skill.level}%
-        </span>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '6px' }}>
+        <span className="mono-label" style={{ color: '#444' }}>PROFICIENCY</span>
+        <span className="mono-label" style={{ color: '#CCFF00' }}>{skill.level}%</span>
       </div>
     </motion.div>
   );

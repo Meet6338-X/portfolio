@@ -10,69 +10,22 @@ import Experience from '@/components/sections/Experience';
 import Contact from '@/components/sections/Contact';
 import { portfolioConfig } from '@/config/portfolio.config';
 
-// Lazy load chat widget to keep initial bundle small
-const ChatWidget = dynamic(() => import('@/components/ui/ChatWidget'), {
-  ssr: false,
-  loading: () => null,
-});
+const ChatBar = dynamic(() => import('@/components/ui/ChatBar'), { ssr: false, loading: () => null });
 
 export default function HomePage() {
   return (
     <>
       <Navbar />
-
       <main>
-        {/* Hero — full viewport */}
         <Hero />
-
-        {/* About */}
-        <div className="relative">
-          <div className="absolute inset-0 mesh-bg pointer-events-none" />
-          <About />
-        </div>
-
-        {/* Divider */}
-        <SectionDivider />
-
-        {/* Skills */}
+        <About />
         <Skills />
-
-        {/* Divider */}
-        <SectionDivider reverse />
-
-        {/* Projects */}
         <Projects />
-
-        {/* Divider */}
-        <SectionDivider />
-
-        {/* Experience */}
         <Experience />
-
-        {/* Divider */}
-        <SectionDivider reverse />
-
-        {/* Contact */}
         <Contact />
       </main>
-
       <Footer />
-
-      {/* Floating AI chat */}
-      {portfolioConfig.aiChat.enabled && <ChatWidget />}
+      {portfolioConfig.aiChat.enabled && <ChatBar />}
     </>
-  );
-}
-
-function SectionDivider({ reverse }: { reverse?: boolean }) {
-  return (
-    <div className="relative h-px mx-auto max-w-6xl px-6 overflow-visible">
-      <div
-        className="absolute inset-0 mx-6"
-        style={{
-          background: `linear-gradient(to ${reverse ? 'left' : 'right'}, transparent, rgba(59,130,246,0.2), transparent)`,
-        }}
-      />
-    </div>
   );
 }

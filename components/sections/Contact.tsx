@@ -1,220 +1,173 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, Github, Linkedin, Twitter, Globe, CheckCircle, Loader2 } from 'lucide-react';
-import AnimatedSection, { StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
+import { Send, Mail, Github, Linkedin, CheckCircle, Loader2, MapPin, Zap } from 'lucide-react';
 import { portfolioConfig } from '@/config/portfolio.config';
 
 export default function Contact() {
   const { contact, email, social, name } = portfolioConfig;
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
-
     try {
-      // If Formspree is configured, use it
-      const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID || contact.formspreeId;
-      if (formspreeId) {
-        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+      const fid = process.env.NEXT_PUBLIC_FORMSPREE_ID || contact.formspreeId;
+      if (fid) {
+        const r = await fetch(`https://formspree.io/f/${fid}`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
         });
-        if (res.ok) {
-          setStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          return;
-        }
+        if (r.ok) { setStatus('success'); setForm({ name: '', email: '', subject: '', message: '' }); return; }
       }
-      // Fallback: open mailto
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(formData.subject || 'Portfolio contact')}&body=${encodeURIComponent(formData.message)}`;
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(form.subject || 'Portfolio Contact')}&body=${encodeURIComponent(form.message)}`;
       setStatus('success');
-    } catch {
-      setStatus('error');
-    }
+    } catch { setStatus('error'); }
   };
 
-  const socialLinks = [
-    { href: social.github, icon: <Github size={18} />, label: 'GitHub', color: '#6e7681' },
-    { href: social.linkedin, icon: <Linkedin size={18} />, label: 'LinkedIn', color: '#0a66c2' },
-    { href: social.twitter, icon: <Twitter size={18} />, label: 'Twitter', color: '#1d9bf0' },
-    { href: social.website, icon: <Globe size={18} />, label: 'Website', color: '#10b981' },
-  ].filter(l => l.href);
-
   return (
-    <section id="contact" className="section relative">
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[var(--accent-blue)]/4 blur-[120px]" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-[var(--accent-purple)]/4 blur-[100px]" />
-      </div>
-
-      <div className="max-w-5xl mx-auto px-6 relative">
-        <AnimatedSection className="text-center mb-14">
-          <p className="section-label">Get In Touch</p>
-          <h2 className="section-title">
-            {contact.heading}
-          </h2>
-          <p className="text-[var(--text-secondary)] max-w-xl mx-auto">
+    <section id="contact" style={{ background: '#0f0f0f' }} className="dot-pattern">
+      <div style={{ height: '6px', background: '#CCFF00' }} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+          <div className="sticker" style={{ display: 'inline-flex', marginBottom: '20px' }}>
+            07 // Contact
+          </div>
+          <div className="display-lg" style={{ color: '#fff' }}>
+            {contact.heading.split(' ').slice(0, 3).join(' ')}
+          </div>
+          <div className="display-lg" style={{ color: '#CCFF00' }}>
+            {contact.heading.split(' ').slice(3).join(' ')}
+          </div>
+          <p className="mono-body" style={{ color: '#666', marginTop: '16px', maxWidth: '480px', marginLeft: 'auto', marginRight: 'auto' }}>
             {contact.subheading}
           </p>
-        </AnimatedSection>
+        </div>
 
-        <div className="grid lg:grid-cols-5 gap-8">
-          {/* Left — info */}
-          <AnimatedSection direction="left" delay={0.2} className="lg:col-span-2 space-y-6">
-            {/* Direct email */}
-            <div className="glass p-5 rounded-2xl">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-xl bg-[var(--accent-blue)]/15 flex items-center justify-center">
-                  <Mail size={18} className="text-[var(--accent-blue)]" />
-                </div>
-                <div>
-                  <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider">Email</p>
-                  <a href={`mailto:${email}`} className="text-sm text-[var(--text-primary)] hover:text-[var(--accent-blue)] transition-colors">
-                    {email}
-                  </a>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          {/* Left: Info */}
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            {/* Email card */}
+            <div style={{ background: '#CCFF00', border: '4px solid #000', boxShadow: '6px 6px 0px 0px #000', padding: '18px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                <Mail size={20} style={{ color: '#000' }} />
+                <span className="mono-label" style={{ color: '#000' }}>DIRECT EMAIL</span>
+              </div>
+              <a href={`mailto:${email}`}
+                style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#000', fontWeight: '700', wordBreak: 'break-all' }}>
+                {email}
+              </a>
+            </div>
+
+            {/* Location */}
+            <div style={{ border: '4px solid #CCFF00', boxShadow: '6px 6px 0px 0px #CCFF00', padding: '18px', background: '#111', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <MapPin size={20} style={{ color: '#CCFF00', flexShrink: 0 }} />
+              <div>
+                <div className="mono-label" style={{ color: '#CCFF00' }}>LOCATION</div>
+                <div style={{ fontFamily: 'var(--font-body)', color: '#fff', marginTop: '4px' }}>{portfolioConfig.location}</div>
               </div>
             </div>
 
             {/* Availability */}
-            <div className="glass p-5 rounded-2xl">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-green)] opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--accent-green)]" />
-                </span>
-                <p className="font-mono text-xs text-[var(--accent-green)] uppercase tracking-wider">Available</p>
+            <div style={{ border: '4px solid #333', padding: '18px', background: '#111' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#00ff88', flexShrink: 0 }} className="pulse-volt" />
+                <span className="mono-label" style={{ color: '#00ff88' }}>AVAILABLE</span>
               </div>
-              <p className="text-sm text-[var(--text-secondary)]">{contact.availability}</p>
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#aaa', lineHeight: 1.6 }}>
+                {contact.availability}
+              </p>
             </div>
 
-            {/* Social links */}
-            <div className="glass p-5 rounded-2xl">
-              <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-4">Find me online</p>
-              <div className="space-y-2">
-                {socialLinks.map(({ href, icon, label, color }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors group"
-                  >
-                    <span style={{ color }} className="transition-transform group-hover:scale-110">
-                      {icon}
-                    </span>
-                    <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">
-                      {label}
-                    </span>
-                    <span className="ml-auto text-[var(--text-muted)] text-xs group-hover:text-[var(--accent-blue)] transition-colors">↗</span>
-                  </a>
-                ))}
-              </div>
-            </div>
-          </AnimatedSection>
-
-          {/* Right — form */}
-          <AnimatedSection direction="right" delay={0.3} className="lg:col-span-3">
-            <div className="glass p-8 rounded-2xl">
-              {status === 'success' ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-10"
-                >
-                  <CheckCircle size={48} className="text-[var(--accent-green)] mx-auto mb-4" />
-                  <h3 className="font-display text-2xl text-[var(--text-primary)] mb-2">Message sent!</h3>
-                  <p className="text-[var(--text-secondary)]">I'll get back to you within 24–48 hours.</p>
-                  <button
-                    onClick={() => setStatus('idle')}
-                    className="mt-6 btn-secondary text-sm px-6"
-                  >
-                    Send another
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
-                        placeholder="Your name"
-                        className="form-input"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
-                        placeholder="your@email.com"
-                        className="form-input"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.subject}
-                      onChange={e => setFormData(p => ({ ...p, subject: e.target.value }))}
-                      placeholder="What's this about?"
-                      className="form-input"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider mb-1.5">
-                      Message
-                    </label>
-                    <textarea
-                      required
-                      rows={6}
-                      value={formData.message}
-                      onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
-                      placeholder="Tell me about your project, opportunity, or just say hello..."
-                      className="form-input resize-none"
-                    />
-                  </div>
-
-                  {status === 'error' && (
-                    <p className="text-red-400 text-sm font-mono">Something went wrong. Please email me directly.</p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={status === 'sending'}
-                    className="btn-primary w-full justify-center py-3.5 text-base"
-                  >
-                    {status === 'sending' ? (
-                      <><Loader2 size={16} className="animate-spin" /> Sending...</>
-                    ) : (
-                      <><Send size={16} /> Send Message</>
-                    )}
-                  </button>
-                </form>
+            {/* Social */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {social.github && (
+                <a href={social.github} target="_blank" rel="noopener noreferrer" className="btn-white"
+                   style={{ justifyContent: 'center', padding: '10px' }}>
+                  <Github size={14} /> GITHUB
+                </a>
+              )}
+              {social.linkedin && (
+                <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="btn-volt"
+                   style={{ justifyContent: 'center', padding: '10px' }}>
+                  <Linkedin size={14} /> LINKEDIN
+                </a>
               )}
             </div>
-          </AnimatedSection>
+          </div>
+
+          {/* Right: Form */}
+          <div className="lg:col-span-3">
+            <div style={{ border: '4px solid #CCFF00', boxShadow: '8px 8px 0px 0px #CCFF00', overflow: 'hidden' }}>
+              <div style={{ background: '#CCFF00', padding: '12px 18px', borderBottom: '4px solid #000' }}>
+                <span className="mono-label" style={{ color: '#000' }}>
+                  <Zap size={12} style={{ display: 'inline', marginRight: '6px' }} />
+                  SEND A MESSAGE
+                </span>
+              </div>
+              <div style={{ padding: '24px', background: '#111' }}>
+                {status === 'success' ? (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    style={{ textAlign: 'center', padding: '32px 0' }}>
+                    <CheckCircle size={48} style={{ color: '#CCFF00', margin: '0 auto 16px' }} />
+                    <div style={{ fontFamily: 'var(--font-display)', fontSize: '32px', color: '#CCFF00', textTransform: 'uppercase' }}>
+                      MESSAGE SENT!
+                    </div>
+                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#666', marginTop: '8px' }}>
+                      I'll get back to you within 24-48 hours.
+                    </p>
+                    <button onClick={() => setStatus('idle')} className="btn-volt" style={{ marginTop: '20px' }}>
+                      SEND ANOTHER
+                    </button>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>NAME</div>
+                        <input type="text" required value={form.name}
+                          onChange={e => setForm(p => ({...p, name: e.target.value}))}
+                          placeholder="YOUR NAME" className="brutal-input" />
+                      </div>
+                      <div>
+                        <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>EMAIL</div>
+                        <input type="email" required value={form.email}
+                          onChange={e => setForm(p => ({...p, email: e.target.value}))}
+                          placeholder="YOUR@EMAIL.COM" className="brutal-input" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>SUBJECT</div>
+                      <input type="text" value={form.subject}
+                        onChange={e => setForm(p => ({...p, subject: e.target.value}))}
+                        placeholder="INTERNSHIP OPPORTUNITY / COLLABORATION" className="brutal-input" />
+                    </div>
+                    <div>
+                      <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>MESSAGE</div>
+                      <textarea rows={5} required value={form.message}
+                        onChange={e => setForm(p => ({...p, message: e.target.value}))}
+                        placeholder="TELL ME ABOUT THE OPPORTUNITY OR PROJECT..."
+                        className="brutal-input" style={{ resize: 'vertical' }} />
+                    </div>
+                    {status === 'error' && (
+                      <p className="mono-sm" style={{ color: '#ff4444' }}>Something went wrong. Email me directly.</p>
+                    )}
+                    <button type="submit" disabled={status === 'sending'} className="btn-volt"
+                      style={{ justifyContent: 'center', opacity: status === 'sending' ? 0.7 : 1 }}>
+                      {status === 'sending'
+                        ? <><Loader2 size={14} className="animate-spin" /> SENDING...</>
+                        : <><Send size={14} /> SEND MESSAGE</>}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div style={{ height: '6px', background: '#CCFF00' }} />
     </section>
   );
 }

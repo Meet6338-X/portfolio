@@ -1,41 +1,37 @@
 import { portfolioConfig } from '@/config/portfolio.config';
-import { Github, Linkedin, Twitter, Globe, Heart } from 'lucide-react';
+import { Github, Linkedin, Heart, Terminal } from 'lucide-react';
 
 export default function Footer() {
   const { name, social, email } = portfolioConfig;
-  const year = new Date().getFullYear();
-
-  const socials = [
-    { href: social.github, icon: <Github size={16} />, label: 'GitHub' },
-    { href: social.linkedin, icon: <Linkedin size={16} />, label: 'LinkedIn' },
-    { href: social.twitter, icon: <Twitter size={16} />, label: 'Twitter' },
-    { href: social.website, icon: <Globe size={16} />, label: 'Website' },
-  ].filter(s => s.href);
 
   return (
-    <footer className="border-t border-[var(--border-subtle)] py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-2 font-mono text-sm text-[var(--text-muted)]">
-          <span>©{year} {name}</span>
+    <footer style={{ background: '#000', borderTop: '4px solid #CCFF00', padding: '20px 0' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#444' }}>
+          <Terminal size={12} style={{ color: '#CCFF00' }} />
+          <span>© {new Date().getFullYear()} <span style={{ color: '#CCFF00' }}>{name}</span></span>
           <span>·</span>
-          <span className="flex items-center gap-1">
-            Built with <Heart size={12} className="text-red-400 mx-0.5" /> & Next.js
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            BUILT WITH <Heart size={11} style={{ color: '#CCFF00' }} /> & NEXT.JS
           </span>
         </div>
-
-        <div className="flex items-center gap-3">
-          {socials.map(({ href, icon, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="w-8 h-8 glass flex items-center justify-center rounded-lg text-[var(--text-muted)] hover:text-[var(--accent-blue)] hover:border-[var(--border-glow)] transition-all"
-            >
-              {icon}
+        <div style={{ display: 'flex', gap: '8px' }}>
+          {social.github && (
+            <a href={social.github} target="_blank" rel="noopener noreferrer"
+               style={{ width: '32px', height: '32px', background: '#111', border: '2px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', transition: 'all 0.15s' }}
+               onMouseEnter={e => { (e.currentTarget).style.borderColor = '#CCFF00'; (e.currentTarget).style.color = '#CCFF00'; }}
+               onMouseLeave={e => { (e.currentTarget).style.borderColor = '#333'; (e.currentTarget).style.color = '#666'; }}>
+              <Github size={14} />
             </a>
-          ))}
+          )}
+          {social.linkedin && (
+            <a href={social.linkedin} target="_blank" rel="noopener noreferrer"
+               style={{ width: '32px', height: '32px', background: '#111', border: '2px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', transition: 'all 0.15s' }}
+               onMouseEnter={e => { (e.currentTarget).style.borderColor = '#CCFF00'; (e.currentTarget).style.color = '#CCFF00'; }}
+               onMouseLeave={e => { (e.currentTarget).style.borderColor = '#333'; (e.currentTarget).style.color = '#666'; }}>
+              <Linkedin size={14} />
+            </a>
+          )}
         </div>
       </div>
     </footer>

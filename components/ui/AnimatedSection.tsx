@@ -1,7 +1,6 @@
 'use client';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
 
 interface AnimatedSectionProps {
   children: React.ReactNode;
@@ -11,99 +10,35 @@ interface AnimatedSectionProps {
   once?: boolean;
 }
 
-export default function AnimatedSection({
-  children,
-  className,
-  delay = 0,
-  direction = 'up',
-  once = true,
-}: AnimatedSectionProps) {
+export default function AnimatedSection({ children, className, delay = 0, direction = 'up', once = true }: AnimatedSectionProps) {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: once });
-
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: direction === 'up' ? 40 : 0,
-      x: direction === 'left' ? -40 : direction === 'right' ? 40 : 0,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      },
-    },
-  };
-
   return (
     <motion.div
       ref={ref}
-      className={cn(className)}
-      variants={variants}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
+      className={className}
+      initial={{ opacity: 0, y: direction === 'up' ? 30 : 0, x: direction === 'left' ? -30 : direction === 'right' ? 30 : 0 }}
+      animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : direction === 'up' ? 30 : 0, x: inView ? 0 : direction === 'left' ? -30 : direction === 'right' ? 30 : 0 }}
+      transition={{ duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {children}
     </motion.div>
   );
 }
 
-export function StaggerContainer({
-  children,
-  className,
-  staggerDelay = 0.1,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  staggerDelay?: number;
-}) {
+export function StaggerContainer({ children, className, staggerDelay = 0.1 }: { children: React.ReactNode; className?: string; staggerDelay?: number }) {
   const { ref, inView } = useInView({ threshold: 0.05, triggerOnce: true });
-
   return (
-    <motion.div
-      ref={ref}
-      className={cn(className)}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
-      }}
-    >
+    <motion.div ref={ref} className={className} initial="hidden" animate={inView ? 'visible' : 'hidden'}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: staggerDelay } } }}>
       {children}
     </motion.div>
   );
 }
 
-export function StaggerItem({
-  children,
-  className,
-  direction = 'up',
-}: {
-  children: React.ReactNode;
-  className?: string;
-  direction?: 'up' | 'left' | 'right';
-}) {
+export function StaggerItem({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <motion.div
-      className={cn(className)}
-      variants={{
-        hidden: {
-          opacity: 0,
-          y: direction === 'up' ? 30 : 0,
-          x: direction === 'left' ? -30 : direction === 'right' ? 30 : 0,
-        },
-        visible: {
-          opacity: 1,
-          y: 0,
-          x: 0,
-          transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
-        },
-      }}
-    >
+    <motion.div className={className}
+      variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } }}>
       {children}
     </motion.div>
   );
