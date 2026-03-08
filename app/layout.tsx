@@ -10,11 +10,20 @@ export const metadata: Metadata = {
   keywords: seo.keywords,
   authors: [{ name }],
   creator: name,
+  publisher: name,
+  formatDetection: {
+    email: true,
+    address: true,
+    telephone: true,
+  },
   openGraph: {
     type: 'website',
     title: seo.title,
     description: seo.description,
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://portfolio-coral-five-89.vercel.app',
+    siteName: name,
     images: [{ url: seo.ogImage, width: 1200, height: 630 }],
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
@@ -22,7 +31,7 @@ export const metadata: Metadata = {
     description: seo.description,
     creator: seo.twitterHandle,
   },
-  robots: { index: true, follow: true },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
