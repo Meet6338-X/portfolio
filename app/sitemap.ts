@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { portfolioConfig } from '@/config/portfolio.config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://portfolio-coral-five-89.vercel.app';
+  const baseUrl = 'https://meet644.vercel.app';
 
   return [
     {

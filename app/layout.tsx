@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: seo.title,
     description: seo.description,
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://portfolio-coral-five-89.vercel.app',
+    url: 'https://meet644.vercel.app',
     siteName: name,
     images: [{ url: seo.ogImage, width: 1200, height: 630 }],
     locale: 'en_US',

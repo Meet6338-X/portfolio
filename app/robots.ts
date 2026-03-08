@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://portfolio-coral-five-89.vercel.app';
+  const baseUrl = 'https://meet644.vercel.app';
 
   return {
     rules: {
