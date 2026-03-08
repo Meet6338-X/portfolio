@@ -5,8 +5,9 @@
   "installCommand": "npm install",
   "regions": ["iad1"],
   "env": {
-    "OPENROUTER_API_KEY": "@openrouter_api_key",
-    "GITHUB_TOKEN": "@github_token"
+    "OPENROUTER_API_KEY": "@OPENROUTER_API_KEY",
+    "GITHUB_TOKEN": "@GITHUB_TOKEN",
+    "NEXT_PUBLIC_SITE_URL": "@NEXT_PUBLIC_SITE_URL"
   },
   "headers": [
     {
