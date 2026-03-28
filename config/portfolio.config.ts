@@ -22,7 +22,7 @@ using cutting-edge GenAI techniques.`,
   phone: "",
   location: "Pune, Maharashtra, India",
   availability: "Seeking 6-month internship — Available now",
-  resumeURL: "/resume.pdf",
+  resumeURL: "https://drive.google.com/drive/folders/1xQUTthMHDokDid00l1y2SXnD6ShH6dld?usp=sharing",
   avatarURL: "https://avatars.githubusercontent.com/u/104332912?v=4",
 
   social: {
