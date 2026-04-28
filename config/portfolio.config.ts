@@ -23,7 +23,7 @@ using cutting-edge GenAI techniques.`,
   location: "Pune, Maharashtra, India",
   availability: "Seeking 6-month internship — Available now",
   resumeURL: "https://drive.google.com/drive/folders/1xQUTthMHDokDid00l1y2SXnD6ShH6dld?usp=sharing",
-  avatarURL: "https://avatars.githubusercontent.com/u/104332912?v=4",
+  avatarURL: "/meet-shah-profile.png",
 
   social: {
     github:   "https://github.com/Meet6338-X",
@@ -253,7 +253,7 @@ using cutting-edge GenAI techniques.`,
      title: "Meet Shah — AI & LLM Developer | Flutter | VIT Pune",
      description: "20-year-old AI/LLM developer from Pune. B.Tech IT @ VIT Pune (9.05 CGPA). Specialising in GenAI, LLMs, Flutter, and full-stack web. Seeking 6-month internship in AI/ML, GenAI, or full-stack development.",
      keywords: "Meet Shah, AI developer, LLM developer, Flutter developer, VIT Pune, GenAI, internship, Python, React, machine learning, Pune developer, software engineer, artificial intelligence, large language models",
-     ogImage: "https://via.placeholder.com/1200x630.png?text=Meet+Shah+AI+Developer+Portfolio",
+     ogImage: "/meet-shah-profile.png",
      twitterHandle: "@Meet6338-X",
    },
 };

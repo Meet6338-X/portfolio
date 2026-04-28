@@ -1,16 +1,23 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { portfolioConfig } from '@/config/portfolio.config';
+import { getAbsoluteUrl, getSiteUrl } from '@/lib/site';
 
 const { seo, name } = portfolioConfig;
+const siteUrl = getSiteUrl();
+const ogImageUrl = seo.ogImage.startsWith('http') ? seo.ogImage : getAbsoluteUrl(seo.ogImage);
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: seo.title,
   description: seo.description,
   keywords: seo.keywords,
   authors: [{ name }],
   creator: name,
   publisher: name,
+  alternates: {
+    canonical: siteUrl,
+  },
   formatDetection: {
     email: true,
     address: true,
@@ -20,9 +27,9 @@ export const metadata: Metadata = {
     type: 'website',
     title: seo.title,
     description: seo.description,
-    url: 'https://meet644.vercel.app',
+    url: siteUrl,
     siteName: name,
-    images: [{ url: seo.ogImage, width: 1200, height: 630 }],
+    images: [{ url: ogImageUrl, width: 1200, height: 630, alt: `${name} profile photo` }],
     locale: 'en_US',
   },
   twitter: {
@@ -30,6 +37,7 @@ export const metadata: Metadata = {
     title: seo.title,
     description: seo.description,
     creator: seo.twitterHandle,
+    images: [ogImageUrl],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 } },
 };

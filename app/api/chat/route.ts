@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
               { role: 'system', content: systemPrompt },
               ...messages.slice(-10), // keep last 10 messages for context window
             ],
-            max_tokens: 400,
+            max_tokens: 1024,
             temperature: 0.75,
             stream: false,
           }),
