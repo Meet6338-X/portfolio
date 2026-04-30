@@ -6,22 +6,28 @@ import { portfolioConfig } from '@/config/portfolio.config';
 
 export default function Contact() {
   const { contact, email, social, name } = portfolioConfig;
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState({ name: '', subject: '', message: '' });
   const [status, setStatus] = useState<'idle'|'sending'|'success'|'error'>('idle');
+  const whatsappNumber = '918080037798';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
     try {
-      const fid = process.env.NEXT_PUBLIC_FORMSPREE_ID || contact.formspreeId;
-      if (fid) {
-        const r = await fetch(`https://formspree.io/f/${fid}`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
-        });
-        if (r.ok) { setStatus('success'); setForm({ name: '', email: '', subject: '', message: '' }); return; }
-      }
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(form.subject || 'Portfolio Contact')}&body=${encodeURIComponent(form.message)}`;
+      const subject = form.subject.trim() || 'Portfolio Contact';
+      const message = [
+        `Hi ${name},`,
+        '',
+        'I found your portfolio and wanted to reach out.',
+        '',
+        `Name: ${form.name}`,
+        `Subject: ${subject}`,
+        '',
+        'Message:',
+        form.message,
+      ].join('\n');
+
+      window.location.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
       setStatus('success');
     } catch { setStatus('error'); }
   };
@@ -124,19 +130,11 @@ export default function Contact() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>NAME</div>
-                        <input type="text" required value={form.name}
-                          onChange={e => setForm(p => ({...p, name: e.target.value}))}
-                          placeholder="YOUR NAME" className="brutal-input" />
-                      </div>
-                      <div>
-                        <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>EMAIL</div>
-                        <input type="email" required value={form.email}
-                          onChange={e => setForm(p => ({...p, email: e.target.value}))}
-                          placeholder="YOUR@EMAIL.COM" className="brutal-input" />
-                      </div>
+                    <div>
+                      <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>NAME</div>
+                      <input type="text" required value={form.name}
+                        onChange={e => setForm(p => ({...p, name: e.target.value}))}
+                        placeholder="YOUR NAME" className="brutal-input" />
                     </div>
                     <div>
                       <div className="mono-label" style={{ color: '#CCFF00', marginBottom: '6px' }}>SUBJECT</div>
