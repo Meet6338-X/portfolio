@@ -250,9 +250,9 @@ using cutting-edge GenAI techniques.`,
   },
 
    seo: {
-     title: "Meet Shah — AI & LLM Developer | Flutter | VIT Pune",
-     description: "20-year-old AI/LLM developer from Pune. B.Tech IT @ VIT Pune (9.05 CGPA). Specialising in GenAI, LLMs, Flutter, and full-stack web. Seeking 6-month internship in AI/ML, GenAI, or full-stack development.",
-     keywords: "Meet Shah, AI developer, LLM developer, Flutter developer, VIT Pune, GenAI, internship, Python, React, machine learning, Pune developer, software engineer, artificial intelligence, large language models",
+     title: "Meet Shah | AI & LLM Developer | Flutter Developer | VIT Pune",
+     description: "Meet Shah is an AI & LLM developer from Pune, B.Tech IT student at VIT Pune, and Flutter/web developer focused on GenAI, prompt engineering, Python, React, and full-stack projects.",
+     keywords: "Meet Shah, Meet Shah portfolio, Meet Shah AI developer, Meet Shah VIT Pune, AI developer, LLM developer, Flutter developer, GenAI developer, Pune developer, Python developer, React developer, machine learning, software engineer, artificial intelligence, large language models",
      ogImage: "/meet-shah-profile.png",
      twitterHandle: "@Meet6338-X",
    },

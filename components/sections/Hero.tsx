@@ -70,12 +70,14 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="display-xl" style={{ color: '#fff' }}>
-            {firstName}
-          </div>
-          <div className="display-xl" style={{ color: '#CCFF00' }}>
-            {lastName}
-          </div>
+          <h1 style={{ margin: 0 }}>
+            <div className="display-xl" style={{ color: '#fff' }}>
+              {firstName}
+            </div>
+            <div className="display-xl" style={{ color: '#CCFF00' }}>
+              {lastName}
+            </div>
+          </h1>
         </motion.div>
 
         {/* Animated subtitle */}

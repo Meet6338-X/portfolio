@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { portfolioConfig } from '@/config/portfolio.config';
 import { getAbsoluteUrl, getSiteUrl } from '@/lib/site';
+import { buildStructuredData } from '@/lib/structured-data';
 
 const { seo, name } = portfolioConfig;
 const siteUrl = getSiteUrl();
 const ogImageUrl = seo.ogImage.startsWith('http') ? seo.ogImage : getAbsoluteUrl(seo.ogImage);
+const structuredData = buildStructuredData();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,6 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       </head>
       <body>{children}</body>
     </html>
