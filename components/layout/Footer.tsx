@@ -1,5 +1,5 @@
 import { portfolioConfig } from '@/config/portfolio.config';
-import { Github, Linkedin, Twitter, Heart, Terminal } from 'lucide-react';
+import { Github, Linkedin, Heart, Terminal } from 'lucide-react';
 
 export default function Footer() {
   const { name, social, email } = portfolioConfig;
@@ -37,7 +37,7 @@ export default function Footer() {
                style={{ width: '32px', height: '32px', background: '#111', border: '2px solid #333', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', transition: 'all 0.15s' }}
                onMouseEnter={e => { (e.currentTarget).style.borderColor = '#CCFF00'; (e.currentTarget).style.color = '#CCFF00'; }}
                onMouseLeave={e => { (e.currentTarget).style.borderColor = '#333'; (e.currentTarget).style.color = '#666'; }}>
-              <Twitter size={14} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 900, lineHeight: 1 }}>X</span>
             </a>
           )}
         </div>

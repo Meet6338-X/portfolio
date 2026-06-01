@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Github, Linkedin, Twitter, CheckCircle, Loader2, MapPin, Zap } from 'lucide-react';
+import { Send, Mail, Github, Linkedin, CheckCircle, Loader2, MapPin, Zap } from 'lucide-react';
 import { portfolioConfig } from '@/config/portfolio.config';
 
 export default function Contact() {
@@ -104,7 +104,7 @@ export default function Contact() {
               {social.twitter && (
                 <a href={social.twitter} target="_blank" rel="noopener noreferrer" className="btn-white"
                    style={{ justifyContent: 'center', padding: '10px' }}>
-                  <Twitter size={14} /> X / TWITTER
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', fontWeight: 900, lineHeight: 1 }}>X</span> X / TWITTER
                 </a>
               )}
             </div>
