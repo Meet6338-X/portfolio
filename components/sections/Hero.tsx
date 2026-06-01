@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Zap, Terminal, Code2 } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Twitter, Zap, Terminal, Code2 } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import { portfolioConfig } from '@/config/portfolio.config';
 
@@ -157,6 +157,12 @@ export default function Hero() {
                 <a href={social.linkedin} target="_blank" rel="noopener noreferrer"
                    className="btn-volt" style={{ padding: '8px 14px' }}>
                   <Linkedin size={14} />
+                </a>
+              )}
+              {social.twitter && (
+                <a href={social.twitter} target="_blank" rel="noopener noreferrer"
+                   className="btn-white" style={{ padding: '8px 14px' }}>
+                  <Twitter size={14} />
                 </a>
               )}
             </div>
