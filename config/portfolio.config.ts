@@ -28,7 +28,7 @@ using cutting-edge GenAI techniques.`,
   social: {
     github:   "https://github.com/Meet6338-X",
     linkedin: "https://www.linkedin.com/in/meet-shah-co",
-    twitter:  "",
+    twitter:  "https://x.com/Meet_644",
     website:  "",
     dribbble: "",
     youtube:  "",
