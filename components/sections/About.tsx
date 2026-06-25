@@ -43,9 +43,9 @@ export default function About() {
               <div className="mono-label" style={{ color: '#000', opacity: 0.7, marginTop: '4px' }}>{portfolioConfig.title}</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: 'auto' }}>
-              <div className="mono-sm" style={{ color: '#000' }}>📍 {location}</div>
-              <div className="mono-sm" style={{ color: '#000' }}>✉️ {email}</div>
-              <div className="mono-sm" style={{ color: '#000' }}>🎓 B.Tech IT · VIT Pune · 9.05 CGPA</div>
+              <div className="mono-sm" style={{ color: '#000' }}>{location}</div>
+              <div className="mono-sm" style={{ color: '#000' }}>{email}</div>
+              <div className="mono-sm" style={{ color: '#000' }}>B.Tech IT - VIT Pune - 9.29 CGPA</div>
             </div>
           </motion.div>
 

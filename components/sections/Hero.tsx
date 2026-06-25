@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Zap, Terminal, Code2 } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Zap, Terminal } from 'lucide-react';
 import { TypeAnimation } from 'react-type-animation';
 import { portfolioConfig } from '@/config/portfolio.config';
 
@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="ticker-track">
           {[...Array(2)].map((_, i) => (
             <span key={i} style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-              {['AI & LLM DEV', '✦', 'FLUTTER ENGINEER', '✦', 'VIT PUNE', '✦', 'GENAI SPECIALIST', '✦', 'OPEN TO INTERNSHIP', '✦', 'PUNE, INDIA', '✦', 'HARVARD CS50X', '✦', 'GOOGLE GEMINI CERTIFIED', '✦'].map((t, j) => (
+              {['AI DEVELOPER', '|', 'SOFTWARE ENGINEER', '|', 'VIT PUNE', '|', '9.29 CGPA', '|', 'OPEN TO SUMMER INTERNSHIP', '|', 'PUNE, INDIA', '|', 'REST APIS', '|', 'LLM ENGINEERING', '|'].map((t, j) => (
                 <span
                   key={j}
                   style={{
@@ -57,10 +57,10 @@ export default function Hero() {
             {portfolioConfig.availability}
           </div>
           <div className="sticker-white">
-            📍 PUNE, INDIA
+            PUNE, INDIA
           </div>
           <div className="sticker-dark">
-            B.TECH IT · VIT PUNE · 9.05 CGPA
+            B.TECH IT - VIT PUNE - 9.29 CGPA
           </div>
         </motion.div>
 
@@ -95,15 +95,15 @@ export default function Hero() {
             {mounted && (
               <TypeAnimation
                 sequence={[
-                  'AI & LLM DEVELOPER',
+                  'AI DEVELOPER',
                   2000,
-                  'FLUTTER MOBILE ENGINEER',
+                  'SOFTWARE ENGINEER IN PUNE',
                   2000,
-                  'GENERATIVE AI SPECIALIST',
+                  'AI ENGINEER IN INDIA',
                   2000,
-                  'PROMPT ENGINEER',
+                  'BACKEND & API DEVELOPER',
                   2000,
-                  'OPEN TO 6-MONTH INTERNSHIP',
+                  'OPEN TO SUMMER INTERNSHIP',
                   2000,
                 ]}
                 speed={60}
@@ -114,7 +114,7 @@ export default function Hero() {
           <span className="blink mono-sm" style={{ color: '#CCFF00' }}>_</span>
         </motion.div>
 
-        {/* Bottom row — stats + CTA */}
+        {/* Bottom row - stats + CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

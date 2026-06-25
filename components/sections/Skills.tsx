@@ -63,8 +63,8 @@ export default function Skills() {
             Also experienced with:
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-            {['Assembly (8086)', 'OpenCV', 'Scikit-Learn', 'PostgreSQL', 'MongoDB', 'SQLite',
-              'Google Cloud', 'Oracle Cloud', 'REST APIs', 'Agile/Scrum', 'Android Studio', 'VS Code'].map(tech => (
+            {['Advanced DSA', 'OOP', 'DBMS', 'Operating Systems', 'API Design', 'MobileNetV2',
+              'LSTM', 'Prophet', 'Random Forest', 'Algorand Blockchain', 'TradingView', 'Bash'].map(tech => (
               <motion.span
                 key={tech}
                 whileHover={{ scale: 1.05, borderColor: '#CCFF00', color: '#CCFF00' }}

@@ -7,6 +7,8 @@ export function buildStructuredData() {
   const sameAs = [
     portfolioConfig.social.linkedin,
     portfolioConfig.social.github,
+    portfolioConfig.social.twitter,
+    portfolioConfig.social.website,
   ].filter(Boolean);
 
   return {
@@ -16,12 +18,34 @@ export function buildStructuredData() {
         '@type': 'Person',
         '@id': `${siteUrl}/#person`,
         name: portfolioConfig.name,
-        alternateName: [portfolioConfig.nickname, portfolioConfig.githubUsername],
+        alternateName: [portfolioConfig.fullName, portfolioConfig.nickname, portfolioConfig.githubUsername],
         url: siteUrl,
         image: imageUrl,
         jobTitle: portfolioConfig.title,
         description: portfolioConfig.seo.description,
         email: `mailto:${portfolioConfig.email}`,
+        telephone: portfolioConfig.phone,
+        award: portfolioConfig.achievements,
+        hasCredential: portfolioConfig.certifications.map((cert) => ({
+          '@type': 'EducationalOccupationalCredential',
+          name: cert.name,
+          credentialCategory: 'certificate',
+          recognizedBy: {
+            '@type': 'Organization',
+            name: cert.issuer,
+          },
+          dateCreated: String(cert.year),
+          url: cert.url || undefined,
+        })),
+        hasOccupation: {
+          '@type': 'Occupation',
+          name: 'AI Developer and Software Engineer',
+          occupationLocation: {
+            '@type': 'City',
+            name: 'Pune',
+          },
+          skills: portfolioConfig.seo.keywords,
+        },
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Pune',
@@ -44,12 +68,18 @@ export function buildStructuredData() {
           'Large Language Models',
           'Generative AI',
           'Prompt Engineering',
+          'RAG',
+          'Agentic AI',
           'Flutter',
           'Dart',
           'React',
           'Next.js',
+          'REST API Development',
+          'Backend Engineering',
           'Python',
+          'Data Science',
           'Machine Learning',
+          'Software Engineering in Pune India',
         ],
         sameAs,
       },
